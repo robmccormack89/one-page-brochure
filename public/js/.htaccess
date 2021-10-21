@@ -1,0 +1,4 @@
+Options -Indexes
+ErrorDocument 403 /403.php
+RewriteEngine on
+RewriteRule ^403.php$ public/ [R=301]

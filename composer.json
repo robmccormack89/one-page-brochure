@@ -1,0 +1,15 @@
+{
+  "require": {
+    "twig/twig": "^3.0",
+    "nahid/jsonq": "^6.0",
+    "bramus/router": "~1.5",
+    "phpmailer/phpmailer": "^6.5",
+    "imagine/imagine": "^1.2"
+  },
+  "autoload": {
+    "psr-4": { "Rmcc\\": ["app/classes/", "app/core/", "app/controllers/", "app/models/", "app/extensions/"] }
+  },
+  "config": {
+    "vendor-dir": "app/vendor"
+  }
+}

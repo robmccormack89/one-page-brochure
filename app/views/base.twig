@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="{{config.language}}">
+
+  <head>
+    
+    <meta charset="{{config.charset}}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset={{config.charset}}" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/public/apple-touch-icon.png">
+    <link rel="icon" type="image/ico" href="/public/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/public/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/public/favicon-16x16.png">
+    <link rel="manifest" href="/public/site.webmanifest">
+    
+    {% block google_fonts %}
+    {% endblock %}
+    
+    {% block base_seo_meta %}
+      <!-- WebSite -->
+      <script type="application/ld+json">
+        {
+          "@context": "https://schema.org/",
+          "@type": "WebSite",
+          "name": "{{config.site_title}}",
+          "url": "{{config.base_url}}",
+          "potentialAction": {
+            "@type": "SearchAction",
+            "target": "{{config.base_url}}/?s={search_term_string}",
+            "query-input": "required name=search_term_string"
+          }
+        }
+      </script>
+      <!-- Person -->
+      <script type="application/ld+json">
+        {
+          "@context": "https://schema.org/",
+          "@type": "Person",
+          "name": "{{config.name}}",
+          "url": "{{config.base_url}}",
+          "image": "{{config.avatar_src}}",
+          "sameAs": [
+            "{{config.github_url}}",
+            "{{config.base_url}}"
+          ],
+          "jobTitle": "{{config.job}}",
+          "worksFor": {
+            "@type": "Organization",
+            "name": "{{config.name}}"
+          }  
+        }
+      </script>
+    {% endblock %}
+    
+    {% block seo_meta %}
+      <title>{{single.meta_title|default(single.title ~ ' | ' ~ site.title)}}</title>
+      <meta name="description" content="{{single.meta_description|default(single.excerpt)}}">
+      <link rel="canonical" href="{{current_url}}" />
+      <meta property="og:type" content="article" />
+      <meta property="og:title" content="{{single.meta_title|default(single.title ~ ' | ' ~ site.title)}}" />
+      <meta property="og:description" content="{{single.meta_description|default(single.excerpt)}}" />
+      <meta property="og:image" content="{{base_url}}{{single.featured_img.src}}" />
+      <meta property="og:url" content="{{current_url}}" />
+      <meta property="og:site_name" content="{{site.title}}" />
+    {% endblock %}
+    
+    {% block base_styles %}
+      <!-- base uikit scss build -->
+      <link rel="stylesheet" type="text/css" href="/public/css/base.css">
+      <!-- font awesome scss build -->
+      <link rel="stylesheet" type="text/css" href="/public/css/global.css">
+      <!-- base uikit scripts: no icons -->
+      <script src="/public/js/global/base.min.js"></script>
+    {% endblock %}
+    
+    {% block styles %}
+      <!-- some styles -->
+      <style>
+        /* helloo */
+      </style>
+    {% endblock %}
+    
+  </head>
+  
+  <body>
+    
+    {% block header %}
+      <section class="uk-background-primary uk-light">
+        {{site.tagline}}...
+      </section>
+    {% endblock %}
+
+    <main id="MainContent" role="main">
+      {% block content %}
+        <div class="uk-section uk-container">
+          <article class="uk-article">
+            <h1 class="uk-article-title uk-text-bold">Hello there...</h1>
+            <p>style example: <a href="https://furni-demo.myshopify.com/" target="_blank">https://furni-demo.myshopify.com/</a></p>
+          </article>
+        </div>
+      {% endblock %}
+    </main>
+    
+    {% block footer %}
+      <section class="uk-background-primary uk-light">
+        {{site.description}}...
+      </section>
+    {% endblock %}
+    
+    {% block base_scripts %}
+      <script type='text/javascript' src='/public/js/global/global.min.js'></script>
+      <!-- <script type='text/javascript' src='/public/js/theme.js'></script> -->
+    {% endblock %}
+
+    {% block scripts %}
+    {% endblock %}
+    
+  </body>
+  
+</html>

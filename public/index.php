@@ -1,0 +1,3 @@
+<?php
+// start your engines...
+require_once '../app/init.php';

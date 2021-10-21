@@ -1,0 +1,11 @@
+# prevent directory access (add 403 error & redirect on 403 errors redirect to public/ which results in 404 error page - page not found)
+Options -Indexes
+ErrorDocument 403 /403.php
+RewriteEngine on
+RewriteRule ^403.php$ public/ [R=301]
+
+# prevent public access to actual data files in this directory, coz you know
+<Files "*.json">  
+  Order Allow,Deny
+  Deny from all
+</Files>

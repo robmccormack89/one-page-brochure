@@ -1,0 +1,24 @@
+// Import my custom variables & mixins
+@import "public/scss/uikit/variables-theme.scss";
+@import "public/scss/uikit/mixins-theme.scss";
+
+// Import themed uikit components (with custom variables)
+@import "public/scss/uikit/theme/_import.scss";
+
+// custom variable overwrites
+// $global-secondary-background: #111d33; // dark & deep blue
+// #17161a // dark
+// #1a191d // lighter dark
+$global-secondary-background: #17161a; // dark
+// 3. custom variable overwrites
+$offcanvas-bar-background: #fff;
+$offcanvas-bar-color-mode: none;
+
+// custom mixin overwrites
+// @import "theme/accordion-mixins.scss";
+
+// Import main uikit components
+@import "public/scss/uikit/_import.base.scss";
+
+// import custom sass styles (uses uikit variables)
+@import "public/scss/theme/_import.scss";
