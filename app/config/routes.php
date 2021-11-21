@@ -32,27 +32,15 @@ if ($config['enable_https']) {
 */
 
 $router->get('/', function() {
-  
-  $params = parse_url($_SERVER['REQUEST_URI']);
-  if (isset($params['query']) && queryParamsExists($params['query'])) {
-    parse_str($params['query'], $params_array);
-    if($_SERVER['REQUEST_URI'] === '?p=1' || $_SERVER['REQUEST_URI'] === '/?p=1'){
-      header('Location: /', true, 301);
-      exit();
-    }
-    (new ArchiveController())->querySite($params['query']);
-  } else {
-    Cache::cacheServe(function() { 
-      (new SingleController('page', 'index'))->getSingle();
-    });
-  }
-  
+  Cache::cacheServe(function() { 
+    (new SingleController('page', 'index'))->getSingle();
+  });
 });
 
 // contact form post route, Homepage!
-// $router->post('/', function() {
-//   (new SingleController('page', 'index'))->getContact();
-// });
+$router->post('/', function() {
+  (new SingleController('page', 'index'))->getContact();
+});
 
 /*
 *
@@ -69,9 +57,9 @@ $router->get('/', function() {
 */
 
 // contact form post route, contact page!
-// $router->post('/contact', function() {
-//   (new SingleController('page', 'contact'))->getContact();
-// });
+$router->post('/contact', function() {
+  (new SingleController('page', 'contact'))->getContact();
+});
 
 $router->get('/{slug}', function($slug) {
   Cache::cacheServe(function() use ($slug) { 
@@ -81,10 +69,10 @@ $router->get('/{slug}', function($slug) {
 
 
 // 404 error route. in most cases 404 errors will be rendered rather than routed, see CoreController->error()
-// $router->set404(function() {
-//   header('HTTP/1.1 404 Not Found');
-//   echo '<hr>Error 404';
-// });
+$router->set404(function() {
+  header('HTTP/1.1 404 Not Found');
+  echo '<hr>Error 404';
+});
 
 // go
 $router->run();

@@ -1,0 +1,245 @@
+{% extends "base.twig" %}
+
+{% block content %}
+  {% set main_text_color = "#6f5948" %}{# brown #}
+  {% set main_logo_color = "#6b5646" %}{# brown #}
+  {% set main_bg_color = "#3c2e25" %}{# brown #}
+  {% set main_highlight_color = "#b99b85" %}{# brown #}
+  {% set main_muted_color = "#f5f5f5" %}{# grey #}
+  {% set main_font = "'Poppins', sans-serif" %}{# poppins #}
+  <style>
+    .fa-spinner {
+      display: none;
+      animation: fa-spin 1s linear infinite;
+    }
+    .fa-spinner.display {
+      display: inline-block;
+    }
+    
+    @media (min-width: 1200px) {
+      .contact-details-left-main {
+        margin-right: 70px;
+      }
+    }
+  </style>
+  <!-- form inputs -->
+  <style>
+    /* input & select inputs */
+    .uk-input, .uk-select, .uk-textarea {
+      background-color: {{main_muted_color}};
+      border: none;
+      transition: .1s ease-in-out;
+      transition-property: background-color,border-color;
+    }
+    
+    /* input & select inputs: hover & focus */
+    .uk-input:focus, .uk-input:hover, 
+    .uk-select:focus, .uk-select:hover,
+    .uk-textarea:focus, .uk-textarea:hover {
+      background-color: #f3f3f3;
+    }
+    
+    /* input & select inputs: uk-light */
+    .uk-light .uk-input, 
+    .uk-light .uk-select,
+    .uk-light .uk-textarea {
+      background-color: rgba(255,255,255,.05);
+    }
+    
+    /* uk-form-large size */
+    .uk-form-large:not(textarea):not([multiple]):not([size]) {
+      height: 45px;
+      padding-left: 12px;
+      padding-right: 12px;
+    }
+    .uk-form-large {
+      font-size: 1rem;
+    }
+    
+    /* placeholder text color */
+    ::placeholder {
+      color: #777777!important;
+      opacity: 1!important;
+    }
+    :-ms-input-placeholder {
+      color: #777777;
+    }
+    ::-ms-input-placeholder {
+      color: #777777;
+    }
+    
+    /* search inputs */
+    .uk-search-default .uk-search-input {
+      background-color: #f8f8f8;
+      border: none;
+      transition: .1s ease-in-out;
+      transition-property: background-color,border-color;
+    }
+    .uk-search-default .uk-search-input:focus, .uk-search-default .uk-search-input:hover {
+      background-color: #f3f3f3;
+    }
+    .uk-light .uk-search-default .uk-search-input {
+      background-color: rgba(255,255,255,.05);
+    }
+    .uk-search .uk-search-icon {
+      color: #17161a;
+    }
+    .uk-search .uk-form-large:not(textarea):not([multiple]):not([size]) {
+      height: 50px;
+      padding-left: 15px;
+      padding-right: 35px;
+    }
+    
+    /* hide data list dropdown icon for autopopulated suggestions inputs */
+    input::-webkit-calendar-picker-indicator {
+      display: none!important;
+    }
+    [list]::-webkit-calendar-picker-indicator {
+      display: none!important;
+    }
+  </style>
+  <img src="{{single.featured_img.src|resize(1920, 300)}}">
+  <div class="uk-section uk-container" data-template="404.twig">
+    <article class="uk-article">
+      <div class="contact-details-section uk-child-width-1-2@m uk-grid-large uk-margin-medium" uk-grid>
+        <div class="contact-details-left">
+          <h2 class="uk-h3">Get in Touch</h2>
+          <div class="uk-grid-small" uk-grid>
+            <div class="contact-details-left-main uk-width-auto@m">
+              <ul class="uk-list uk-list-collapse uk-margin">
+                <li>General Inquiries</li>
+                <li class=""><a href="mailto:{{site.display_email}}" class="uk-text-bold">{{site.display_email}}</a></li>
+              </ul>
+              Available times:<br>
+              {{site.open_hours|raw}}
+            </div>
+            <div class="contact-details-left-additional uk-width-expand@m">
+              <ul class="uk-list uk-list-collapse uk-margin">
+                <li>Current Customers</li>
+                <li class=""><a href="mailto:{{site.display_email2}}" class="uk-text-bold">{{site.display_email2}}</a></li>
+              </ul>
+              Assistance hours:<br>
+              {{site.assist_hours|raw}}
+            </div>
+          </div>
+        </div>
+        <div class="contact-details-right">
+          <div class="uk-child-width-1-2@m uk-grid-large uk-margin-large" uk-grid>
+            <div>
+              <h2 class="uk-h3">Located in</h2>
+              {{site.stacked_address|raw}}
+            </div>
+            <div>
+              <h2 class="uk-h3">Find us on</h2>
+              <li><a href="{{site.twit_url}}" class="uk-text-bold"><i class="fab fa-github"></i> Twitter</a></li>
+              <li><a href="{{site.fb_url}}" class="uk-text-bold"><i class="fab fa-facebook-f"></i> Facebook</a></li>
+              <li><a href="{{site.goog_url}}" class="uk-text-bold"><i class="fab fa-slack"></i> Google</a></li>
+              <li><a href="{{site.tumblr_url}}" class="uk-text-bold"><i class="fab fa-tumblr"></i> Tumblr</a></li>
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr>
+      <div class="contact-form-section uk-section uk-section-xsmall">
+        <div id="status-message">
+          {% if resonse is defined %}
+            {{response.message}}
+          {% endif %}
+        </div>
+        <form method="post" id="contact-form" class="uk-child-width-1-2@m uk-grid-small" uk-grid>
+          <div>
+            <label class="uk-form-label uk-text-bold" for="name">Name (required)</label>
+            <div class="uk-form-controls">
+              <input class="uk-input uk-border-rounded uk-form-large" name="name" id="name" type="text" placeholder="Your name..">
+            </div>
+          </div>
+          <div>
+            <label class="uk-form-label uk-text-bold" for="email">Email (required)</label>
+            <div class="uk-form-controls">
+              <input class="uk-input uk-border-rounded uk-form-large" name="email" id="email" type="email" placeholder="Your email address..">
+            </div>
+          </div>
+          <div>
+            <label class="uk-form-label uk-text-bold" for="phone">Phone (optional)</label>
+            <div class="uk-form-controls">
+              <input class="uk-input uk-border-rounded uk-form-large" name="phone" id="phone" type="tel" placeholder="Your phone number..">
+            </div>
+          </div>
+          <div>
+            <label class="uk-form-label uk-text-bold" for="subject">Subject (optional)</label>
+            <div class="uk-form-controls">
+              <input class="uk-input uk-border-rounded uk-form-large" name="subject" id="subject" type="text" maxlength="255" placeholder="What your message is about..">
+            </div>
+          </div>
+          <div>
+            <label class="uk-form-label uk-text-bold" for="company">Company (optional)</label>
+            <div class="uk-form-controls">
+              <input class="uk-input uk-border-rounded uk-form-large" name="company" id="company" type="text" placeholder="Your company name..">
+            </div>
+          </div>
+          <div>
+            <label class="uk-form-label uk-text-bold" for="budget">Choose a Budget (optional)</label>
+            <div class="uk-form-controls">
+              <select class="uk-select uk-border-rounded uk-form-large" name="budget" id="budget">
+                <option value="under-5k">Less than €5,000</option>
+                <option value="5-10k">€5,000-€10,000</option>
+                <option value="over-10k">Over €10,000</option>
+                <option value="not-applicable">Not applicable</option>
+              </select>
+            </div>
+          </div>
+          <div class="uk-width-auto">
+            <button id="FormSubmit" type="submit" class="uk-button uk-button-primary slim-button">
+              Submit <i id="loading" class="fas fa-spinner"></i>
+            </button>
+          </div>
+        </form>
+      </div>
+    </article>
+  </div>
+{% endblock %}
+
+{% block scripts %}
+  <script type="application/javascript">
+    const form = document.getElementById("contact-form");
+    function email(data) {
+      const message = document.getElementById("status-message");
+      displayLoading();
+      fetch('', {
+        method: "POST",
+        body: data,
+        headers: {
+         'X-Requested-With' : 'XMLHttpRequest'
+        }
+      })
+      .then(response => response.json())
+      .then(response => {
+        hideLoading();
+        message.innerHTML = response.message;
+        if (response.status == true) {
+          form.reset();
+        }
+      })
+      .catch(error => {
+        error.json().then(response => {
+          message.innerHTML = response.message
+        })
+      })
+    };
+    const submitEvent = form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const formData = new FormData(form);
+      email(formData);
+    });
+    const loader = document.querySelector("#loading");
+    function displayLoading() {
+      loader.classList.add("display");
+      setTimeout(() => {
+        loader.classList.remove("display");
+      }, 5000);
+    };
+    function hideLoading() {
+      loader.classList.remove("display");
+    };
+  </script>
+{% endblock %}

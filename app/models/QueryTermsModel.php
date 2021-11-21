@@ -52,15 +52,21 @@ class QueryTermsModel {
     global $_context;
     $the_type = $_context['type'];
     global $config;
-    if($this->taxonomyKey() && taxSettingByKey($_context['type'], 'single', $this->taxonomyKey(), 'key')) {
-      // get taxonomy meta from $config
-      $_tax = taxSettingByKey($_context['type'], 'single', $this->taxonomyKey(), 'key');
-      $data = $config['types'][$the_type]['taxonomies'][$_tax]['meta'];
-    } else {
-      // get base meta if no tax key
-      $q = new Json($config['json_data']);
-      $data = $q->from('site.content_types.'.$_context['type'].'.meta')->get();
+    
+    if(array_key_exists('single', $_context)) {
+      $data = '';
+    } elseif(array_key_exists('archive', $_context)){
+      if($this->taxonomyKey() && taxSettingByKey($_context['type'], 'single', $this->taxonomyKey(), 'key')) {
+        // get taxonomy meta from $config
+        $_tax = taxSettingByKey($_context['type'], 'single', $this->taxonomyKey(), 'key');
+        $data = $config['types'][$the_type]['taxonomies'][$_tax]['meta'];
+      } else {
+        // get base meta if no tax key
+        $q = new Json($config['json_data']);
+        $data = $q->from('site.content_types.'.$_context['type'].'.meta')->get();
+      }
     }
+    
     return $data;
   }
   
@@ -148,6 +154,10 @@ class QueryTermsModel {
     $q = new Json($config['json_data']);
     
     $terms = new Json();
+    
+    if($this->typeKey()){
+      $_context['type'] = $this->typeKey();
+    }
     
     if($this->taxonomyKey() && taxSettingByKey($_context['type'], 'single', $this->taxonomyKey(), 'key')) {
       $_tax = taxSettingByKey($_context['type'], 'single', $this->taxonomyKey(), 'key');
@@ -271,6 +281,11 @@ class QueryTermsModel {
   * Various string params to check for. If string, string -> array
   *
   */
+  private function typeParam() {
+    $string_args = $this->paramsDissect();
+    if(array_key_exists('type', $string_args)) return $string_args['type'];
+    return false;
+  }
   private function taxonomyParam() {
     $string_args = $this->paramsDissect();
     if(array_key_exists('taxonomy', $string_args)) return $string_args['taxonomy'];
@@ -307,6 +322,10 @@ class QueryTermsModel {
   * Various keys to check for. If array
   *
   */
+  private function typeKey() {
+    if($this->query_vars && array_key_exists('type', $this->query_vars)) return $this->query_vars['type'];
+    return false;
+  }
   private function taxonomyKey() {
     if($this->query_vars && array_key_exists('taxonomy', $this->query_vars)) return $this->query_vars['taxonomy'];
     return false;

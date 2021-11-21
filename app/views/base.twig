@@ -13,6 +13,9 @@
     <link rel="manifest" href="/public/site.webmanifest">
     
     {% block google_fonts %}
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap" rel="stylesheet">
     {% endblock %}
     
     {% block base_seo_meta %}
@@ -73,9 +76,400 @@
     {% endblock %}
     
     {% block styles %}
-      <!-- some styles -->
+      {% set main_text_color = "#6f5948" %}{# brown #}
+      {% set main_logo_color = "#6b5646" %}{# brown #}
+      {% set main_bg_color = "#3c2e25" %}{# brown #}
+      {% set main_highlight_color = "#b99b85" %}{# brown #}
+      {% set main_muted_color = "#f5f5f5" %}{# grey #}
+      {% set main_font = "'Poppins', sans-serif" %}{# poppins #}
+      
+      <!-- general/site -->
       <style>
-        /* helloo */
+        /* containers */
+        .uk-container {
+          max-width: 1170px;
+        }
+        .uk-container-expand {
+          max-width: none;
+        }
+        .uk-container-large {
+          max-width: 1400px;
+        }
+        /* overlays */
+        .uk-overlay-primary {
+          background: rgb(34 34 34 / 55%);
+        }
+        /* transitions */
+        .uk-transition-toggle:hover .uk-transition-scale-up {
+          transform: scale(1.1);
+        }
+        .uk-transition-fade, [class*=uk-transition-scale], [class*=uk-transition-slide] {
+          transition: .6s ease-out;
+        }
+        /* rounded borders modded */
+        .uk-border-rounded.top-only {
+          border-radius: 5px 5px 0px 0px;
+        }
+        /* navs */
+        .uk-nav-default {
+          font-size: 1rem;
+        }
+        .uk-iconnav {
+          margin: 0 0 0 -20px;
+        }
+        .uk-iconnav>* {
+          padding-left: 20px;
+        }
+        .uk-subnav>*>:first-child {
+          text-transform: none;
+          font-size: 1rem;
+        }
+        /* buttons */
+        .uk-button.uk-border-rounded {
+          border-radius: 50px;
+        }
+        .uk-button-secondary {
+          background-color: {{main_bg_color|raw}};
+        }
+        .uk-button-whatsapp {
+          background-color: #25D366;
+          color: #fff!important;
+        }
+        .uk-button-whatsapp:focus, .uk-button-whatsapp:hover {
+          background-color: #23b359;
+        }
+        .uk-button-danger {
+          background-color: #f0506e;
+          color: #fff!important;
+          border: 1px solid transparent;
+        }
+        .uk-button-stretch {
+          font-size: 1rem;
+          line-height: 28px;
+          padding: 5px 20px;
+          text-transform: capitalize;
+        }
+        .uk-button-large.slim-button {
+          font-size: .875rem;
+          line-height: 45px;
+          padding: 0 35px;
+        }
+        .uk-button-primary.slim-button {
+          background-color: #ff000000;
+          border: 3px solid {{main_logo_color}};
+          color: {{main_logo_color}};
+        }
+        .uk-button-primary.slim-button:hover {
+          background-color: {{main_logo_color}};
+          border: 3px solid {{main_logo_color}};
+          color: #fff;
+        }
+        .uk-light .uk-button-primary.slim-button {
+          border-color: #fff;
+          color: #fff;
+        }
+        .uk-light .uk-button-primary.slim-button:hover {
+          background-color: #fff;
+          color: #333;
+        }
+      </style>
+      
+      <!-- fonts & text -->
+      <style>
+        .uk-link, a {
+          color: {{main_text_color}};
+        }
+        /* fonts */
+        html {
+          -webkit-text-size-adjust: 100%;
+          background: #fff;
+          color: #666;
+          font-family: {{main_font|raw}};
+          font-size: 14px;
+          font-weight: 300;
+          line-height: 1.5;
+        }
+        .uk-h1, .uk-h2, .uk-h3, .uk-h4, .uk-h5, .uk-h6, 
+        .uk-heading-2xlarge, .uk-heading-large, .uk-heading-medium, .uk-heading-small, .uk-heading-xlarge, 
+        h1, h2, h3, h4, h5, h6 {
+          color: {{main_text_color}};
+          font-family: {{main_font|raw}};
+          font-weight: 400;
+          margin: 0 0 20px;
+          text-transform: none;
+        }
+        .uk-navbar-item, .uk-navbar-nav>li>a, .uk-navbar-toggle {
+          align-items: center;
+          box-sizing: border-box;
+          display: flex;
+          font-family: {{main_font|raw}};
+          font-size: .875rem;
+          justify-content: center;
+          min-height: 80px;
+          padding: 0 15px;
+          text-decoration: none;
+        }
+        .uk-logo, .uk-logo:focus, .uk-logo:hover {
+          color: {{main_text_color|raw}};
+          font-family: {{main_font|raw}};
+          font-size: 2rem;
+          text-decoration: none;
+          font-weight: 700;
+        }
+        /* light text */
+        footer.uk-light a, footer.uk-light p,
+        .uk-light .uk-nav-default>li>a {
+          color: #fff;
+        }
+        .uk-light .uk-logo {
+          color: #fff;
+        }
+      </style>
+      
+      <!-- colours -->
+      <style>
+        .bg-brown, .uk-background-primary, .uk-section-primary {
+          background-color: {{main_bg_color|raw}};
+        }
+        .bg-muted, .uk-background-muted, .uk-section-muted {
+          background-color: {{main_muted_color|raw}};
+        }
+      </style>
+      
+      <!-- header -->
+      <style>
+        /* header navbar navs */
+        header .uk-navbar-nav>li>a {
+          color: #333;
+          text-transform: capitalize;
+        }
+        header .uk-navbar-nav>li.uk-active>a, .uk-navbar-nav>li>a:active,
+        header .uk-navbar-nav>li:hover>a, header .uk-navbar-nav>li>a.uk-open, header .uk-navbar-nav>li>a:focus {
+          color: {{main_highlight_color}};
+        }
+        header .uk-navbar-item, .uk-navbar-nav>li>a, .uk-navbar-toggle {
+          font-size: 1.2rem;
+          min-height: 80px;
+          padding: 0 25px;
+        }
+        
+        /* header subnavs */
+        header .uk-subnav>*>:first-child {
+          color: {{main_text_color}};
+          display: block;
+          font-size: .9rem;
+          text-transform: none;
+          font-weight: 400;
+        }
+        header .uk-subnav>li:hover>a {
+          color: {{main_highlight_color}};
+        }
+        
+        /* header top */
+        #HeaderTop {
+          padding: 10px 0;
+        }
+        
+        /* header middle */
+        #HeaderMiddleMobileNav .uk-navbar-item, #HeaderMiddleMobileNav .uk-navbar-nav>li>a, #HeaderMiddleMobileNav .uk-navbar-toggle {
+          font-size: 1.2rem;
+          min-height: 35px;
+          padding: 0 25px;
+        }
+        #HeaderMiddleMobileNav .uk-navbar-nav>li>a {
+          color: {{main_text_color}};
+        }
+        #HeaderMiddleMain.uk-section-small {
+          padding-bottom: 10px;
+          padding-top: 10px;
+        }
+        .uk-sticky-fixed #HeaderMiddleMain .header-main-grid {
+          display: none;
+        }
+        .uk-sticky-fixed #HeaderMiddleMain.uk-padding-small {
+          padding: 0;
+        }
+        
+        /* header offcanvas */
+        #offcanvas-nav .uk-nav-default>li>a {
+          color: #333;
+        }
+        #offcanvas-nav .uk-nav-default>li.uk-active>a, .uk-nav-default>li>a:active,
+        #offcanvas-nav .uk-nav-default>li>a:focus, #offcanvas-nav .uk-nav-default>li>a:hover {
+          color: {{main_highlight_color}};
+        }
+        
+        /* dropdown icons */
+        .mainmenu-drop-icon {
+          margin-left: 5px;
+          font-size: 0.8rem;
+        }
+      </style>
+      
+      <!-- footer -->
+      <style>
+      
+        /* footer logo */
+        footer .uk-logo {
+          font-size: 2rem;
+        }
+        
+        /* footer gallery */
+        .gallery-grid.uk-grid-small>* {
+          padding-left: 5px;
+        }
+        .gallery-grid.uk-grid-small>.uk-grid-margin {
+          margin-top: 5px;
+        }
+        .gallery-grid {
+          margin-left: 0px!important;
+        }
+        
+        /* footer bottom */
+        .footer-bottom {
+          padding: 20px;
+        }
+        
+        /* footer bottom subnav */
+        .footer-bottom .uk-subnav>*>:first-child {
+          color: #333;
+        }
+        .footer-bottom .uk-subnav>.uk-active>a,
+        .footer-bottom .uk-subnav>li:hover>a {
+          color: {{main_highlight_color}};
+        }
+        .footer-bottom .uk-subnav-divider {
+          margin-left: -21px;
+        }
+        .footer-bottom .uk-subnav>* {
+          padding-left: 10px;
+        }
+        .footer-bottom .uk-subnav-divider>:before {
+          margin-right: 10px;
+        }
+        
+      </style>
+      
+      <!-- responsive -->
+      <style>
+      
+        .hero-cover:after {
+          background-color: rgba(3,14,66,.0);
+        }
+        .hero-cover:after {
+          content: "";
+          display: block;
+          position: absolute;
+          top: 0;
+          right: 0;
+          bottom: 0;
+          left: 0;
+          height: 100%;
+          width: 100%;
+          z-index: auto;
+        }
+        /* hero cover */
+        @media only screen and (max-width:639px) {
+          .hero-cover .uk-heading-medium {
+            font-size: 2.5rem;
+          }
+          .hero-cover .uk-text-large {
+            font-size: 1.2rem;
+          }
+          .hero-cover .uk-margin-medium {
+            margin-top: 20px!important;
+            margin-bottom: 20px;
+          }
+        }
+        @media only screen and (max-width:768px) {
+          .hero-cover .uk-section-large {
+            padding-bottom: 50px!important;
+            padding-top: 50px!important;
+          }
+        }
+        @media only screen and (min-device-width:769px) and (max-device-width:959px) {
+          .hero-cover .uk-section-large {
+            padding-bottom: 50px!important;
+            padding-top: 50px!important;
+          }
+        }
+        @media only screen and (max-width:959px) {
+          .hero-cover {
+            margin-top: 20px;
+          }
+        }
+        @media only screen and (min-device-width:960px) and (max-device-width:1250px) {
+          .hero-cover .uk-section-large {
+            padding-bottom: 80px!important;
+            padding-top: 80px!important;
+          }
+        }
+        
+        /* three blocks */
+        .fullscreen-modal .uk-background-cover {
+          min-height: 100vh;
+        }
+        @media only screen and (max-width:639px) {
+          .fullscreen-modal .uk-background-cover {
+            min-height: 20vh;
+          }
+          .fullscreen-modal-content {
+            min-height: 80vh;
+          }
+        }
+        @media only screen and (max-width:959px) {
+          .three-blocks .uk-transition-fade {
+            opacity: 1;
+          }
+          .three-blocks-block .uk-padding {
+            padding-left: 0;
+            padding-right: 0;
+          }
+        }
+
+        /* header main navbar */
+        @media only screen and (min-device-width:940px) and (max-device-width:1085px) {
+          header .uk-navbar-item, .uk-navbar-nav>li>a, .uk-navbar-toggle {
+            font-size: 1.1rem;
+            min-height: 80px;
+            padding: 0 20px;
+          }
+        }
+        
+        /* .three-blocks & .three-blocks-block */
+        @media only screen and (max-width:959px) {
+          .three-blocks-block img {
+            max-height: 200px;
+            object-fit: cover;
+          }
+        }
+        @media only screen and (max-width:1200px) {
+          .three-blocks-block .uk-overlay-primary>.uk-padding {
+            padding:0;
+          }
+          .three-blocks-block .uk-h1 {
+            font-size: 2rem;
+          }
+        }
+        
+        /* .products-grid & .products-grid-again */
+        @media only screen and (max-width:959px) {
+          .grid-item img {
+            max-height: 200px;
+            object-fit: cover;
+          }
+        }
+        
+        /* section.uk-section-small */
+        @media only screen and (max-width:959px) {
+          section.uk-section-small {
+            padding: 20px 0;
+          }
+          section.uk-margin-medium-bottom{
+            margin-bottom: 20px!important;
+          }
+        }
+        
       </style>
     {% endblock %}
     
@@ -84,26 +478,459 @@
   <body>
     
     {% block header %}
-      <section class="uk-background-primary uk-light">
-        {{site.tagline}}...
-      </section>
+      <header>
+        
+        <div id="HeaderTop" class="uk-background-default">
+          <div class="uk-container">
+            <div class="uk-margin-remove uk-grid-collapse" uk-grid>
+              <div class="uk-width-1-1 uk-width-expand@m">
+                <div class="uk-flex uk-flex-center uk-flex-left@m">
+                  <ul class="uk-subnav uk-margin-remove-bottom">
+                    <li>
+                      <a href="tel:{{site.display_phone}}"><i class="fa fa-phone-alt" style="margin-right: 5px;"></i>{{site.display_phone}}</a>
+                    </li>
+                    <li>
+                      <a href="mailto:{{site.display_email}}"><i class="fa fa-envelope" style="margin-right: 5px;"></i>{{site.display_email}}</a></a>
+                    </li>
+                  </ul>
+                </div>
+                <hr class="uk-divider-small uk-margin-small-bottom uk-margin-small uk-hidden@m uk-text-center">
+              </div>
+              <div class="uk-width-1-1 uk-width-auto@m">
+                <div class="uk-flex uk-flex-center uk-flex-right@m">
+                  <ul class="uk-subnav uk-margin-remove-bottom">
+                    {% if top_menu %}
+                      {% for item in top_menu.menu_items %}
+                        <li class="{{item.class}}">
+                          <a href="{{item.link}}">{{item.title}}</a>
+                        </li>
+                      {% endfor %}  
+                    {% else %}
+                      <li>Add a menu with the slug main-menu to data.json</li>
+                    {% endif %}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div id="HeaderMiddle" class="uk-background-muted theme-border-bottom" uk-sticky="animation: uk-animation-slide-top;">
+          
+          <div id="HeaderMiddleMain" class="uk-container uk-section-small">
+            <div class="uk-grid-collapse uk-margin-remove uk-flex uk-flex-middle header-main-grid" uk-grid>
+              <div id="HeaderLogo" class="uk-width-expand">
+                <div class="uk-text-center uk-text-left@m">
+                  <a href="/" class="uk-logo" style="line-height:31px;">{{site.title}}</a>
+                  <p class="uk-text-small uk-text-italic uk-margin-remove" style="line-height:9px;">{{site.tagline}}</p>
+                </div>
+              </div>
+              <div id="HeaderRight" class="uk-width-auto uk-visible@m uk-text-right">
+                <a href="tel:{{site.display_phone}}" class="uk-button uk-button-danger uk-button-stretch uk-border-rounded uk-margin-small-right">
+                  Freephone {{site.display_phone}}
+                </a>
+                <a href="{{site.whatsapp_link}}" class="uk-button uk-button-whatsapp uk-button-stretch uk-border-rounded">
+                  Message us on <i class="fab fa-whatsapp"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+          
+          <div id="HeaderMiddleMobileNav" class="uk-hidden@m">
+            <hr class="uk-margin-remove">
+            <div class="uk-container uk-padding-small">
+              <nav class="uk-navbar-container" uk-navbar>
+                <div class="uk-navbar-left">
+                  <ul class="uk-navbar-nav" style="margin-left:-25px;">
+                    <li>
+                      <a uk-toggle="target: #offcanvas-nav"><i class="fas fa-bars fa-lg"></i><span class="uk-margin-small-left">Menu</span></a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="uk-navbar-right">
+                  <ul class="uk-navbar-nav" style="margin-right:0;">
+                    <li class="uk-margin-small-right">
+                      <a href="" class="uk-button uk-button-small uk-button-danger uk-border-rounded"><i class="fas fa-phone-alt"></i></a>
+                    </li>
+                    <li>
+                      <a href="" class="uk-button uk-button-small uk-button-whatsapp uk-border-rounded"><i class="fab fa-whatsapp fa-lg"></i></a>
+                    </li>
+                  </ul>
+                </div>
+              </nav>
+            </div>
+          </div>
+            
+        </div>
+        
+        <nav id="HeaderBottom" class="uk-navbar-container uk-navbar-transparent uk-visible@m" uk-navbar>
+          <div class="uk-navbar-center">
+            <ul class="uk-navbar-nav">
+              {% if main_menu %}
+                {% for item in main_menu.menu_items %}
+                  <li class="menu-item {{item.class}}">
+                    <a href="{{item.link}}">{{item.title}}{% if item.children %}<i class="fas fa-chevron-down fa-xs mainmenu-drop-icon"></i>{% endif %}</a>
+                    {% if item.children %}
+                      <div class="uk-navbar-dropdown">
+                        <ul class="uk-nav uk-navbar-dropdown-nav">
+                          {% for child_item in item.children %}
+                            <li class="menu-item {{child_item.class}}">
+                              <a href="{{child_item.link}}">{{child_item.title}}</a>
+                              {% if child_item.children %}
+                                <div class="third-drop uk-navbar-dropdown">
+                                  <ul class="uk-nav uk-navbar-dropdown-nav">
+                                    {% for third_item in child_item.children %}
+                                      <li class="menu-item {{third_item.class}}"><a href="{{third_item.link}}">{{third_item.title}}</a></li>
+                                    {% endfor %}
+                                  </ul>
+                                </div>
+                              {% endif %}
+                            </li>
+                          {% endfor %}  
+                        </ul>
+                      </div>
+                    {% endif %}
+                  </li>
+                {% endfor %}  
+              {% else %}
+                <li class="menu-item">Add a menu with the slug main-menu to data.json</li>
+              {% endif %}
+            </ul>
+          </div>
+        </nav>
+        
+        <div id="offcanvas-nav" uk-offcanvas="overlay: true; flip: true">
+          <div class="uk-offcanvas-bar">
+            <button class="uk-offcanvas-close" type="button" uk-close></button>
+            <ul class="uk-nav uk-nav-default uk-nav-parent-icon" uk-nav>
+              <li class="uk-nav-header uk-text-uppercase">Navigation</li>
+              <li class="uk-nav-divider"></li>
+              {% if main_menu %}
+                {% for item in main_menu.menu_items %}
+                  <li class="menu-item {{item.class}} {% if item.children %}uk-parent{% endif %}">
+                    <a href="{{item.link}}">{{item.title}}</a>
+                    {% if item.children %}
+                      <ul class="uk-nav-sub">
+                        {% for child_item in item.children %}
+                          <li class="menu-item {{child_item.class}}">
+                            <a href="{{child_item.link}}">{{child_item.title}}</a>
+                          </li>
+                        {% endfor %}  
+                      </ul>
+                    {% endif %}
+                  </li>
+                {% endfor %}  
+              {% else %}
+                <li class="menu-item">Add a menu with the slug main-menu to data.json</li>
+              {% endif %}
+              <li class="uk-nav-divider"></li>
+            </ul>
+            <div>
+              <h5 class="uk-margin-top">Contact us</h5>
+              <div>
+                <div class="address">
+                  <p class="uk-margin-small">{{site.display_address}}</p>
+                </div>
+                <p class="uk-margin-small"><a class="uk-margin-small-bottom" href="tel:{{site.display_phone}}"><i class="fa fa-phone fa-sm"></i> {{site.display_phone}}</a></p>
+                <p class="uk-margin-small"><a class="" href="mailto:{{site.display_email}}"><i class="fas fa-clock fa-sm"></i> {{site.display_email}}</a></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+      </header>
     {% endblock %}
 
     <main id="MainContent" role="main">
       {% block content %}
-        <div class="uk-section uk-container">
-          <article class="uk-article">
-            <h1 class="uk-article-title uk-text-bold">Hello there...</h1>
-            <p>style example: <a href="https://furni-demo.myshopify.com/" target="_blank">https://furni-demo.myshopify.com/</a></p>
-          </article>
-        </div>
+        {% set hero_banner = hero_banners|first %}
+        
+        <section class="hero-cover hero_banner uk-container uk-container-expand uk-position-relative uk-margin-medium-bottom">
+          <div class="uk-section uk-section-large uk-background-cover uk-background-fixed uk-background-center-center uk-light uk-border-rounded purple-wrap-blur" data-src="{{hero_banner.featured_img.src|resize(1823)}}" uk-img>
+            <div class="cover-content uk-position-z-index uk-position-relative uk-container uk-container-large">
+              <h1 class="uk-heading-medium">{{hero_banner.title}}</h1>
+              <p class="uk-text-large uk-text-emphasis uk-margin-medium">{{hero_banner.excerpt|raw}}</p>
+              <a href="#target" uk-scroll="offset:30" class="uk-button uk-button-primary uk-button-large slim-button">Learn more</a>
+            </div>
+          </div>
+        </section>
+        
+        <section id="target" class="three-blocks highlight_blocks uk-section uk-section-small">
+          <div class="uk-container uk-container-expand">
+            <div class="uk-child-width-1-3@m uk-grid-small" uk-grid>
+              {% for highlight in highlight_blocks %}
+                <div class="three-blocks-block">
+                  <div class="uk-inline-clip uk-transition-toggle uk-width-1-1" tabindex="0">
+                    <img class="uk-border-rounded uk-width-1-1" src="{{highlight.featured_img.src|resize(1200, 800)}}" alt="">
+                    <div class="uk-transition-fade uk-border-rounded uk-position-cover uk-position-small uk-overlay uk-overlay-primary uk-flex uk-flex-middle uk-margin-remove">
+                      <div class="uk-padding uk-light">
+                        {% if highlight.meta %}<span class="uk-text-meta uk-margin-small-bottom">{{highlight.meta}}</span>{% endif %}
+                        <h2 class="uk-h1">{{highlight.title}}</h2>
+                        {% if highlight.link_type == 'modal' %}
+                          <a href="#modal-full-{{highlight.slug}}" class="uk-button uk-button-primary slim-button" uk-toggle>{{highlight.link_text}}</a>
+                        {% else %}
+                          <a href="{{highlight.linked_url}}" {% if highlight.link_type == 'external' %}target="_blank"{% endif %} class="uk-button uk-button-primary slim-button">{{highlight.link_text}}</a>
+                        {% endif %}
+                      </div>
+                    </div>
+                  </div>
+                  <div id="modal-full-{{highlight.slug}}" class="fullscreen-modal uk-modal-full" uk-modal>
+                    <div class="uk-modal-dialog">
+                      <button class="uk-modal-close-full uk-close-large" type="button" uk-close></button>
+                      <div class="uk-grid-collapse uk-child-width-1-2@s uk-flex-middle" uk-grid>
+                        <div class="uk-background-cover" style="background-image: url('{{highlight.featured_img.src|resize(1200, 800)}}');"></div>
+                        <div class="uk-padding-large fullscreen-modal-content">
+                          <h1>{{highlight.title}}</h1>
+                          {{highlight.description|raw}}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+        </section>
+        
+        <section class="products-grid uk-section uk-section-small">
+          <div class="uk-container uk-container-expand">
+            <h1>Our Blinds Collections</h1>
+            <div class="uk-child-width-1-2@s uk-child-width-1-3@m uk-grid-small" uk-grid>
+              {% for blind in blinds %}
+                <div class="grid-item">
+                  <div class="uk-card uk-card-small">
+                    <div class="uk-card-media-top">
+                      <a href="#">
+                        <div class="uk-inline-clip uk-transition-toggle uk-border-rounded uk-width-1-1" tabindex="0">
+                          <img class="uk-transition-scale-up uk-transition-opaque uk-width-1-1" src="{{blind.featured_img.src|resize(800, 350)}}" alt="">
+                        </div>
+                      </a>
+                    </div>
+                    <div class="uk-card-body uk-padding-remove-horizontal">
+                      <h3 class="uk-h2">{{blind.title}}</h3>
+                      <p>{{blind.excerpt}}.</p>
+                      <a href="#modal-blind-{{blind.slug}}" class="uk-button uk-button-primary slim-button" uk-toggle>Read More</a>
+                      <div id="modal-blind-{{blind.slug}}" class="fullscreen-modal uk-modal-full" uk-modal>
+                        <div class="uk-modal-dialog">
+                          <button class="uk-modal-close-full uk-close-large" type="button" uk-close></button>
+                          <div class="uk-grid-collapse uk-child-width-1-2@s uk-flex-middle" uk-grid>
+                            <div class="uk-background-cover" style="background-image: url('{{blind.featured_img.src|resize(800, 800)}}');"></div>
+                            <div class="uk-padding-large fullscreen-modal-content">
+                              <h1>{{blind.title}}</h1>
+                              <hr class="uk-divider-small">
+                              <p>{{blind.description|raw}}</p>
+                              <a href="{{blind.external_url}}" class="uk-button uk-button-primary slim-button" target="_blank">Read More</a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+        </section>
+        
+        <section class="two-blocks uk-section uk-section-small">
+          <div class="uk-container uk-container-expand">
+            <div class="uk-child-width-1-2@m uk-grid-small" uk-grid>
+              {% for banner in banner_blocks %}
+                <div class="two-blocks-block">
+                  <a href="{{banner.external_url}}">
+                    <div class="uk-inline-clip uk-transition-toggle uk-border-rounded" tabindex="0">
+                      <img class="uk-transition-scale-up uk-transition-opaque" src="{{banner.featured_img.src|resize(1200)}}" alt="">
+                    </div>
+                  </a>
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+        </section>
+        
+        <section class="products-grid-again uk-section uk-section-small">
+          <div class="uk-container uk-container-expand">
+            <h1>Our Complete Collections</h1>
+            <div class="uk-child-width-1-2@s uk-child-width-1-3@m uk-grid-small" uk-grid>
+              {% for cat in categories %}
+                <div class="grid-item">
+                  <div class="uk-card uk-card-small">
+                    <div class="uk-card-media-top">
+                      <a href="{{cat.external_url}}">
+                        <div class="uk-inline-clip uk-transition-toggle uk-border-rounded uk-width-1-1" tabindex="0">
+                          <img class="uk-transition-scale-up uk-transition-opaque uk-width-1-1" src="{{cat.featured_img.src|resize(800, 350)}}" alt="">
+                        </div>
+                      </a>
+                    </div>
+                    <div class="uk-card-body uk-padding-remove-horizontal">
+                      <h3 class="uk-h2">{{cat.title}}</h3>
+                      <p>{{cat.cat_excerpt}}</p>
+                      <a href="#modal-cat-{{cat.slug}}" class="uk-button uk-button-primary slim-button" uk-toggle>Read More</a>
+                      <div id="modal-cat-{{cat.slug}}" class="fullscreen-modal uk-modal-full" uk-modal>
+                        <div class="uk-modal-dialog">
+                          <button class="uk-modal-close-full uk-close-large" type="button" uk-close></button>
+                          <div class="uk-grid-collapse uk-child-width-1-2@s uk-flex-middle" uk-grid>
+                            <div class="uk-background-cover" style="background-image: url('{{cat.featured_img.src|resize(800, 800)}}');"></div>
+                            <div class="uk-padding-large fullscreen-modal-content">
+                              <h1>{{cat.title}}</h1>
+                              <hr class="uk-divider-small">
+                              <p>{{cat.cat_description|raw}}</p>
+                              <a href="{{cat.external_url}}" class="uk-button uk-button-primary slim-button" target="_blank">Read More</a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+        </section>
+
+        <p hidden>example: <a href="https://furni-demo.myshopify.com/">https://furni-demo.myshopify.com/</a></p>
       {% endblock %}
     </main>
     
     {% block footer %}
-      <section class="uk-background-primary uk-light">
-        {{site.description}}...
-      </section>
+      <footer>
+        <div class="footer-main uk-background-primary uk-light uk-section">
+          <div class="uk-container">
+            <div class="" uk-grid>
+              <div class="uk-width-1-4@m">
+                <a href="/" class="uk-logo" style="line-height:31px;">{{site.title}}</a>
+                <p class="uk-text-small uk-text-italic uk-margin-remove" style="line-height:9px;">{{site.tagline}}</p>
+                <p>{{site.description}}</p>
+                <h4 class="uk-margin-small-top">Follow us</h4>
+                <ul class="uk-iconnav">
+                  <li>
+                    <a href="{{site.twit_url}}"><i class="fab fa-twitter fa-lg"></i></a>
+                  </li>
+                  <li>
+                    <a href="{{site.fb_url}}"><i class="fab fa-facebook-f fa-lg"></i></a>
+                  </li>
+                  <li>
+                    <a href="{{site.goog_url}}"><i class="fab fa-google fa-lg"></i></a>
+                  </li>
+                  <li>
+                    <a href="{{site.tumblr_url}}"><i class="fab fa-tumblr fa-lg"></i></a>
+                  </li>
+                </ul>
+              </div>
+              <div class="uk-width-3-4@m">
+                <div class="uk-child-width-1-4@m uk-flex" uk-grid>
+                  <div class="uk-flex-last@m">
+                    <h3>Contact us</h3>
+                    <div>
+                      <div class="address">
+                        <p class="uk-margin-small">{{site.display_address}}</p>
+                      </div>
+                      <p class="uk-margin-small"><a class="uk-margin-small-bottom" href="tel:{{site.display_phone}}"><i class="fa fa-phone fa-sm"></i> {{site.display_phone}}</a></p>
+                      <p class="uk-margin-small"><a class="" href="mailto:{{site.display_email}}"><i class="fas fa-clock fa-sm"></i> {{site.display_email}}</a></p>
+                    </div>
+                  </div>
+                  <div>
+                    <h3>Information</h3>
+                    <ul class="uk-nav uk-nav-default">
+                      {% if info_menu %}
+                        {% for item in info_menu.menu_items %}
+                          <li class="{{item.class}}">
+                            <a href="{{item.link}}">{{item.title}}</a>
+                          </li>
+                        {% endfor %}  
+                      {% else %}
+                        <li>Add a menu with the slug main-menu to data.json</li>
+                      {% endif %}
+                    </ul>
+                  </div>
+                  <div>
+                    <h3>Who We Are</h3>
+                    <ul class="uk-nav uk-nav-default">
+                      {% if who_we_are_menu %}
+                        {% for item in who_we_are_menu.menu_items %}
+                          <li class="{{item.class}}">
+                            <a href="{{item.link}}">{{item.title}}</a>
+                          </li>
+                        {% endfor %}  
+                      {% else %}
+                        <li>Add a menu with the slug main-menu to data.json</li>
+                      {% endif %}
+                    </ul>
+                  </div>
+                  <div>
+                    <h3>Gallery</h3>
+                    <div class="uk-child-width-1-3 uk-grid-small gallery-grid" uk-grid>
+                      <div>
+                        {% set gall_img1 = '/public/img/blinds/venetian1.jpg' %}
+                        <img class="uk-border-rounded" src="{{gall_img1|resize(300, 300)}}">
+                      </div>
+                      <div>
+                        {% set gall_img2 = '/public/img/blinds/venetian2.jpg' %}
+                        <img class="uk-border-rounded" src="{{gall_img2|resize(300, 300)}}">
+                      </div>
+                      <div>
+                        {% set gall_img3 = '/public/img/curtains/curtains1.jpg' %}
+                        <img class="uk-border-rounded" src="{{gall_img3|resize(300, 300)}}">
+                      </div>
+                      <div>
+                        {% set gall_img4 = '/public/img/day-night/day-night1.jpg' %}
+                        <img class="uk-border-rounded" src="{{gall_img4|resize(300, 300)}}">
+                      </div>
+                      <div>
+                        {% set gall_img5 = '/public/img/pleated/pleated1.jpg' %}
+                        <img class="uk-border-rounded" src="{{gall_img5|resize(300, 300)}}">
+                      </div>
+                      <div>
+                        {% set gall_img6 = '/public/img/roller/roller1.jpg' %}
+                        <img class="uk-border-rounded" src="{{gall_img6|resize(300, 300)}}">
+                      </div>
+                      <div>
+                        {% set gall_img7 = '/public/img/roman/roman1.jpg' %}
+                        <img class="uk-border-rounded" src="{{gall_img7|resize(300, 300)}}">
+                      </div>
+                      <div>
+                        {% set gall_img8 = '/public/img/shutters/shutters1.jpg' %}
+                        <img class="uk-border-rounded" src="{{gall_img8|resize(300, 300)}}">
+                      </div>
+                      <div>
+                        {% set gall_img9 = '/public/img/vertical/vertical1.jpg' %}
+                        <img class="uk-border-rounded" src="{{gall_img9|resize(300, 300)}}">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="footer-bottom uk-background-default">
+          <div class="uk-container">
+            <div class="uk-margin-remove uk-grid-collapse" uk-grid>
+              <div class="uk-width-1-1 uk-width-expand@m uk-visible@m">
+                <div class="uk-flex uk-flex-center uk-flex-left@m">
+                  <ul class="uk-subnav uk-subnav-divider uk-margin-remove-bottom" uk-margin>
+                    {% if main_menu %}
+                      {% for item in main_menu.menu_items %}
+                        <li class="{{item.class}}">
+                          <a href="{{item.link}}">{{item.title}}</a>
+                        </li>
+                      {% endfor %}  
+                    {% else %}
+                      <li>Add a menu with the slug main-menu to data.json</li>
+                    {% endif %}
+                  </ul>
+                </div>
+                <hr class="uk-divider-small uk-margin-small-bottom uk-margin-small uk-hidden@m">
+              </div>
+              <div class="uk-width-1-1 uk-width-auto@m uk-text-center uk-text-right@m">
+                <div class="uk-flex uk-flex-center uk-flex-right@m">
+                  <p class="uk-margin-remove">Copyright © 2021. {{site.title}} {{site.tagline}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </footer>
     {% endblock %}
     
     {% block base_scripts %}

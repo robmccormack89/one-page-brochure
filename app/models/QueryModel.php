@@ -79,11 +79,23 @@ class QueryModel {
   private function getQueriedObject() {
     global $_context;
     $data = $this->getBaseMeta();
-    if(isset($_context['type']) && !isset($_context['term'])) $data = $this->getArchiveMeta();
-    if(isset($_context['term'])) $data = $this->getTermMeta();
+    
+    // if IS a query on archives, global type IS set & global term IS NOT set (a main archive)
+    if(array_key_exists('archive', $_context) && isset($_context['type']) && !isset($_context['term'])) $data = $this->getArchiveMeta();
+    
+    // if IS a query on archives, & global term IS set (a term archive)
+    if(array_key_exists('archive', $_context) && isset($_context['term'])) $data = $this->getTermMeta();
+    
+    // if global type IS NOT set but type query param IS set (a search query)
     if(!isset($_context['type']) && $this->typeParam()){
       $data['title'] = 'Query: '.$this->typeParam();
     }
+    
+    // if IS a query on single, like a custom query
+    if(array_key_exists('single', $_context)) {
+      $data = '';
+    }
+    
     return $data;
   }
   // Site Meta

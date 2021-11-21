@@ -180,6 +180,100 @@ class SingleController extends CoreController {
     global $_context;
     $context['single'] = (new SingleModel($this->type, $this->slug))->single;
     $context['context'] = $_context;
+    
+    // if homepage, we will get some posts from json to display on homepage, like a products grid
+    // these posts are essentially like a private cpt on wordpress, they can be displayed but are not routed or archived
+    // if archived routes were enabled, this cpt would become live.. perhaps non-public cpts can be defined in config, then checked against in archived routes
+    // so as to not create routes for that cpt, thereby making it private (non-routed but displayable) 
+    if($this->slug == 'index') {
+      
+      // products (blinds)
+      $blinds_args_array = array(
+        // working. takes string & content type singular label (post, project etc...)
+        'type' => 'product',
+        
+        // // working. takes array with relation key & sub-arrays
+        'tax_query' => array(
+          // relation is required for now as there are checks based the iteration of the first array in this sequence, which should be 2nd when relation exists
+          'relation' => 'AND', // working: 'AND', 'OR'. Deaults to 'AND'.
+          array(
+            'taxonomy' => 'category', // working. takes taxonomy string
+            'terms' => array('blinds'), // working. takes array
+            'operator' => 'AND' // 'AND', 'IN', 'NOT IN'. 'IN' is default. AND means posts must have all terms in the array. In means just one.
+          )
+        ),
+        // 
+        // // working. takes string & searches in title/excerpt for matches
+        // 's' => 'lorem',
+        // 
+        // // working. takes array with date arguments.
+        // 'date' => array(
+        //   'year'  => 2021,
+        //   'month' => 4,
+        //   'day'   => 4,
+        // ),
+        // 
+        // // working. takes string & searches in slugs for matches
+        // 'name' => 'sed',
+        // 
+        // 'orderby' => 'title', // title, slug: title is default
+        // 'order' => 'DESC', // ASC DESC: ASC is default
+        // 
+        // // the pagination stuff. seems to be working...
+        // 'per_page' => 3,
+        // 'p' => 1,
+        
+        'show_all' => true
+      );
+      $blinds_obj = new QueryModel($blinds_args_array);
+      $blinds = $blinds_obj->posts;
+      $context['blinds'] = $blinds;
+      
+      $hero_banners_args_array = array(
+        // working. takes string & content type singular label (post, project etc...)
+        'type' => 'hero_banner',
+        
+        'per_page' => 1,
+        'p' => 1
+        // 'show_all' => true
+      );
+      $hero_banners_obj = new QueryModel($hero_banners_args_array);
+      $hero_banners = $hero_banners_obj->posts;
+      $context['hero_banners'] = $hero_banners;
+      
+      $highlight_blocks_args_array = array(
+        // working. takes string & content type singular label (post, project etc...)
+        'type' => 'highlight_block',
+        'show_all' => true
+      );
+      $highlight_blocks_obj = new QueryModel($highlight_blocks_args_array);
+      $highlight_blocks = $highlight_blocks_obj->posts;
+      $context['highlight_blocks'] = $highlight_blocks;
+      
+      $banner_blocks_args_array = array(
+        // working. takes string & content type singular label (post, project etc...)
+        'type' => 'banner_block',
+        'show_all' => true
+      );
+      $banner_blocks_obj = new QueryModel($banner_blocks_args_array);
+      $banner_blocks = $banner_blocks_obj->posts;
+      $context['banner_blocks'] = $banner_blocks;
+      
+      $cats_args_array = array(
+        // the query stuff...
+        'type' => 'shop', // REQUIRED
+        'taxonomy' => 'category', // REQUIRED
+        // the pagination stuff...
+        // 'per_page' => 3,
+        // 'p' => 1,
+        'show_all' => true
+      );
+      $cats_obj = new QueryTermsModel($cats_args_array);
+      $cats = $cats_obj->terms;
+      $context['categories'] = $cats;
+      
+    }
+    
     $this->render($context);
   }
   

@@ -52,8 +52,8 @@ $config['charset'] = 'UTF-8';
 * Set these to enable php caching & minification
 *
 */
-$config['php_cache'] = true;
-$config['php_minify'] = true;
+$config['php_cache'] = false;
+$config['php_minify'] = false;
 
 /*
 *
@@ -84,5 +84,85 @@ $config['twig_templates_locations'] = array();
 *
 */
 $config['types'] = array();
+
+/*
+*
+* Blog registration
+*
+*/
+
+$config['types']['shop'] = array(
+  'key'  => 'shop', // used as main key/main archive url
+  'items' => 'products', // used as product items key/in singular urls
+  'single' => 'product', // used as singular key such as in queries
+  'per_page' => 7,
+  'meta' => array(
+    'title'  => 'My Shop', // MainIndexArchive title
+    'description' => 'Something more descriptive goes here...', // MainIndexArchive description
+    'meta_title' => '',
+    'meta_description' => '',
+  ),
+);
+$config['types']['shop']['taxes_in_meta'] = array('categories', 'tags');
+$config['types']['shop']['taxonomies'] = array();
+$config['types']['shop']['taxonomies']['categories'] = array(
+  'key'  => 'categories', // used as main key/archive url
+  'single'  => 'category', // used as singular key such as in queries
+  'meta' => array(
+    'title'  => 'Categories', // CollectionArchive title
+    'description' => 'Handshake release assets validation metrics first mover advantage ownership prototype', // CollectionArchive description
+    'meta_title' => '',
+    'meta_description' => '',
+  ),
+);
+$config['types']['shop']['taxonomies']['tags'] = array(
+  'key'  => 'tags',
+  'single'  => 'tag',
+  'meta' => array(
+    'title'  => 'Tags',
+    'description' => 'Handshake release assets validation metrics first mover advantage ownership prototype',
+    'meta_title' => '',
+    'meta_description' => '',
+  ),
+);
+
+$config['types']['the_hero_banners'] = array(
+  'key'  => 'the_hero_banners', // used as main key/main archive url
+  'items' => 'hero_banners', // used as product items key/in singular urls
+  'single' => 'hero_banner', // used as singular key such as in queries
+  'per_page' => 7,
+  'meta' => array(
+    'title'  => 'My Shop', // MainIndexArchive title
+    'description' => 'Something more descriptive goes here...', // MainIndexArchive description
+    'meta_title' => '',
+    'meta_description' => '',
+  ),
+);
+
+$config['types']['the_highlight_blocks'] = array(
+  'key'  => 'the_highlight_blocks', // used as main key/main archive url
+  'items' => 'highlight_blocks', // used as product items key/in singular urls
+  'single' => 'highlight_block', // used as singular key such as in queries
+  'per_page' => 7,
+  'meta' => array(
+    'title'  => 'My Shop', // MainIndexArchive title
+    'description' => 'Something more descriptive goes here...', // MainIndexArchive description
+    'meta_title' => '',
+    'meta_description' => '',
+  ),
+);
+
+$config['types']['the_banner_blocks'] = array(
+  'key'  => 'the_banner_blocks', // used as main key/main archive url
+  'items' => 'banner_blocks', // used as product items key/in singular urls
+  'single' => 'banner_block', // used as singular key such as in queries
+  'per_page' => 7,
+  'meta' => array(
+    'title'  => 'My Shop', // MainIndexArchive title
+    'description' => 'Something more descriptive goes here...', // MainIndexArchive description
+    'meta_title' => '',
+    'meta_description' => '',
+  ),
+);
 
 return $config;

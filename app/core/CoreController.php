@@ -12,7 +12,7 @@ class CoreController {
     $loader = new \Twig\Loader\FilesystemLoader($config['twig_templates_locations'], $config['twig_templates_base_location']);
     $loader->prependPath('/');
     
-    $_environ = ['cache' => '../app/cache/compilation'];
+    $_environ = ['cache' => '../app/cache/compilation', 'auto_reload' => true];
     // $_environ = ['cache' => false];
     // error reporting
     if($config['enable_debug_mode']) {
@@ -59,12 +59,13 @@ class CoreController {
     
     // menus
     $main_menu = new MenuModel('main-menu');
-    $main_menu_chunked = array_chunk($main_menu->menu_items, ceil(count($main_menu->menu_items) / 2));
-    $main_menu_first = $main_menu_chunked[0];
-    $main_menu_second = $main_menu_chunked[1];
     $this->twig->addGlobal('main_menu', $main_menu);
-    $this->twig->addGlobal('main_menu_first', $main_menu_first);
-    $this->twig->addGlobal('main_menu_second', $main_menu_second);
+    $info_menu = new MenuModel('info-menu');
+    $this->twig->addGlobal('info_menu', $info_menu);
+    $who_we_are_menu = new MenuModel('who-we-are-menu');
+    $this->twig->addGlobal('who_we_are_menu', $who_we_are_menu);
+    $top_menu = new MenuModel('top-menu');
+    $this->twig->addGlobal('top_menu', $top_menu);
     
     // url globals
     $this->twig->addGlobal('base_url', $config['base_url']);

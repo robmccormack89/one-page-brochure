@@ -109,7 +109,7 @@ class Resize {
       'resolution-x' => 300,
       'resolution-y' => 300,
       'jpeg_quality' => 100,
-      'png_compression_level' => 9,
+      'png_compression_level' => 1,
       'webp_quality' => 100,
       'resampling-filter' => ImageInterface::FILTER_LANCZOS,
     );
